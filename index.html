@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#c9ad75">
+<meta name="description" content="无何有之乡。一纸虚构山河，二十四境，同入一卷。"><title>無何有之鄉 · 虚构山河卷</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main class="scroll-page">
+  <div class="roller roller-top" aria-hidden="true"></div><div class="roller roller-bottom" aria-hidden="true"></div>
+  <div class="silk-edge silk-left" aria-hidden="true"></div><div class="silk-edge silk-right" aria-hidden="true"></div>
+  <header class="opening">
+    <h1 class="sr-only">無何有之鄉 · 虚构山河卷</h1>
+    <div class="opening-note"><span class="small-seal" aria-hidden="true"></span><p>不知何處是人間<br>且向此中尋丘壑</p></div>
+    <div class="opening-title"><span>山 水 無 定</span><small>一紙可臥遊</small></div>
+    <p class="opening-date">丙午　秋日<br><span>虛構地志之一</span></p>
+  </header>
+  <section class="artwork" aria-label="虚构山河长卷">
+    <div class="canvas-wrap"><canvas id="landscape" width="3200" height="1200" tabindex="0" role="button" aria-label="水墨长卷，点击或按回车另造一境" aria-busy="true"></canvas><div id="transition-label" aria-live="polite">展 卷</div></div>
+    <p id="load-error" role="alert" hidden></p>
+  </section>
+  <section class="closing">
+    <div class="afterword"><p>所見皆似曾相識<br>所至皆無可抵達</p><span>雲生不知處，舟渡未有鄉。</span></div>
+    <div class="interaction">
+      <div class="actions" aria-label="观画操作"><button id="regenerate" disabled>另造一境<span>落墨 ↗</span></button><button id="inspect" disabled>細觀</button><button id="save" disabled>藏卷</button><button id="sound" aria-pressed="false">聽風<span>关闭</span></button></div>
+      <div class="composition-tools" aria-label="下卷意境"><label for="mode">境隨心轉</label><select id="mode"><option value="wander">平遠 · 山水相續</option><option value="fold" selected>奇境 · 萬象倒懸</option><option value="rift">幻境 · 天地錯置</option></select><label class="range-label" for="intensity">幻度</label><input id="intensity" type="range" min="0" max="100" value="68"><output id="intensity-value" for="intensity">68%</output></div>
+      <div class="quiet-status"><span id="state" role="status">正在展卷</span><span>第 <b id="generation">一</b> 卷</span><span id="composition-name">雲水相生</span><button id="grid" aria-pressed="false"><span>觀二十四境</span></button></div>
+    </div>
+    <div class="collector-note"><span class="collector-seal" aria-hidden="true"></span><p>山河寄意<br>不問來處</p></div>
+  </section>
+  <footer><span>輕觸畫面，山河復生</span><span>虛構山河　·　無何有之鄉</span><button id="work-note-toggle" aria-expanded="false" aria-controls="work-note">卷末記</button></footer>
+  <p id="work-note" hidden>以《天書》似是而非之意，寄虛構山河於一紙。此為獨立數字作品，非古畫，亦非徐冰作品。水墨圖像由 AI 預先創作，展卷時依山勢、水脈與留白在本機重新造境。</p>
+</main>
+<dialog id="viewer" aria-labelledby="viewer-title"><div class="viewer-toolbar"><span id="viewer-title">展卷細觀 <small>原大後可左右滑動</small></span><div><button id="zoom-out">全卷</button><button id="zoom-in">原大 ＋</button><button id="viewer-close" aria-label="关闭细观">收卷 ×</button></div></div><div class="viewer-scroll"><img id="detail-image" alt="当前完整水墨画卷"></div></dialog>
+<script src="assets/ink-library.js"></script><script src="assets/scroll-materials.js"></script><script src="app.js"></script>
+</body></html>

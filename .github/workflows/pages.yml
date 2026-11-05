@@ -1,0 +1,45 @@
+name: Publish ink scroll
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Prepare the public website
+        run: |
+          mkdir -p _site/assets
+          cp index.html style.css app.js _site/
+          cp assets/ink-library.js assets/scroll-materials.js _site/assets/
+          touch _site/.nojekyll
+          python3 - <<'PY'
+          from pathlib import Path
+          page = Path('_site/index.html').read_text(encoding='utf-8')
+          assert '<meta charset="utf-8">' in page
+          assert '無何有之鄉' in page
+          for asset in ('style.css', 'app.js', 'assets/ink-library.js', 'assets/scroll-materials.js'):
+              assert Path('_site', asset).is_file(), asset
+          PY
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Publish
+        id: deployment
+        uses: actions/deploy-pages@v4

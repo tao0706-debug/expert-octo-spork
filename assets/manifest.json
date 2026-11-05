@@ -1,0 +1,678 @@
+{
+  "version": 2,
+  "count": 48,
+  "assets": [
+    {
+      "id": 0,
+      "name": "悬空议会",
+      "group": "gothic",
+      "width": 384,
+      "height": 341,
+      "source": "sources/gothic.webp",
+      "box": [
+        0,
+        0,
+        384,
+        341
+      ]
+    },
+    {
+      "id": 1,
+      "name": "有机圣堂",
+      "group": "gothic",
+      "width": 384,
+      "height": 341,
+      "source": "sources/gothic.webp",
+      "box": [
+        384,
+        0,
+        768,
+        341
+      ]
+    },
+    {
+      "id": 2,
+      "name": "倒悬港口",
+      "group": "gothic",
+      "width": 384,
+      "height": 341,
+      "source": "sources/gothic.webp",
+      "box": [
+        768,
+        0,
+        1152,
+        341
+      ]
+    },
+    {
+      "id": 3,
+      "name": "螺旋水道",
+      "group": "gothic",
+      "width": 384,
+      "height": 341,
+      "source": "sources/gothic.webp",
+      "box": [
+        1152,
+        0,
+        1536,
+        341
+      ]
+    },
+    {
+      "id": 4,
+      "name": "西班牙市集",
+      "group": "gothic",
+      "width": 384,
+      "height": 342,
+      "source": "sources/gothic.webp",
+      "box": [
+        0,
+        341,
+        384,
+        683
+      ]
+    },
+    {
+      "id": 5,
+      "name": "镜像双城",
+      "group": "gothic",
+      "width": 384,
+      "height": 342,
+      "source": "sources/gothic.webp",
+      "box": [
+        384,
+        341,
+        768,
+        683
+      ]
+    },
+    {
+      "id": 6,
+      "name": "曲线街区",
+      "group": "gothic",
+      "width": 384,
+      "height": 342,
+      "source": "sources/gothic.webp",
+      "box": [
+        768,
+        341,
+        1152,
+        683
+      ]
+    },
+    {
+      "id": 7,
+      "name": "断裂塔桥",
+      "group": "gothic",
+      "width": 384,
+      "height": 342,
+      "source": "sources/gothic.webp",
+      "box": [
+        1152,
+        341,
+        1536,
+        683
+      ]
+    },
+    {
+      "id": 8,
+      "name": "浮空车站",
+      "group": "gothic",
+      "width": 384,
+      "height": 341,
+      "source": "sources/gothic.webp",
+      "box": [
+        0,
+        683,
+        384,
+        1024
+      ]
+    },
+    {
+      "id": 9,
+      "name": "自由之岛",
+      "group": "gothic",
+      "width": 384,
+      "height": 341,
+      "source": "sources/gothic.webp",
+      "box": [
+        384,
+        683,
+        768,
+        1024
+      ]
+    },
+    {
+      "id": 10,
+      "name": "迷宫广场",
+      "group": "gothic",
+      "width": 384,
+      "height": 341,
+      "source": "sources/gothic.webp",
+      "box": [
+        768,
+        683,
+        1152,
+        1024
+      ]
+    },
+    {
+      "id": 11,
+      "name": "古典碎屿",
+      "group": "gothic",
+      "width": 384,
+      "height": 341,
+      "source": "sources/gothic.webp",
+      "box": [
+        1152,
+        683,
+        1536,
+        1024
+      ]
+    },
+    {
+      "id": 12,
+      "name": "瀑布巨构",
+      "group": "future",
+      "width": 384,
+      "height": 341,
+      "source": "sources/future.webp",
+      "box": [
+        0,
+        0,
+        384,
+        341
+      ]
+    },
+    {
+      "id": 13,
+      "name": "扭转天际线",
+      "group": "future",
+      "width": 384,
+      "height": 341,
+      "source": "sources/future.webp",
+      "box": [
+        384,
+        0,
+        768,
+        341
+      ]
+    },
+    {
+      "id": 14,
+      "name": "折纸街城",
+      "group": "future",
+      "width": 384,
+      "height": 341,
+      "source": "sources/future.webp",
+      "box": [
+        768,
+        0,
+        1152,
+        341
+      ]
+    },
+    {
+      "id": 15,
+      "name": "倒置曼哈顿",
+      "group": "future",
+      "width": 384,
+      "height": 341,
+      "source": "sources/future.webp",
+      "box": [
+        1152,
+        0,
+        1536,
+        341
+      ]
+    },
+    {
+      "id": 16,
+      "name": "轨道港",
+      "group": "future",
+      "width": 384,
+      "height": 342,
+      "source": "sources/future.webp",
+      "box": [
+        0,
+        341,
+        384,
+        683
+      ]
+    },
+    {
+      "id": 17,
+      "name": "未来车库",
+      "group": "future",
+      "width": 384,
+      "height": 342,
+      "source": "sources/future.webp",
+      "box": [
+        384,
+        341,
+        768,
+        683
+      ]
+    },
+    {
+      "id": 18,
+      "name": "流线博物馆",
+      "group": "future",
+      "width": 384,
+      "height": 342,
+      "source": "sources/future.webp",
+      "box": [
+        768,
+        341,
+        1152,
+        683
+      ]
+    },
+    {
+      "id": 19,
+      "name": "悬崖别墅",
+      "group": "future",
+      "width": 384,
+      "height": 342,
+      "source": "sources/future.webp",
+      "box": [
+        1152,
+        341,
+        1536,
+        683
+      ]
+    },
+    {
+      "id": 20,
+      "name": "球形城市",
+      "group": "future",
+      "width": 384,
+      "height": 341,
+      "source": "sources/future.webp",
+      "box": [
+        0,
+        683,
+        384,
+        1024
+      ]
+    },
+    {
+      "id": 21,
+      "name": "未来货港",
+      "group": "future",
+      "width": 384,
+      "height": 341,
+      "source": "sources/future.webp",
+      "box": [
+        384,
+        683,
+        768,
+        1024
+      ]
+    },
+    {
+      "id": 22,
+      "name": "环轨结",
+      "group": "future",
+      "width": 384,
+      "height": 341,
+      "source": "sources/future.webp",
+      "box": [
+        768,
+        683,
+        1152,
+        1024
+      ]
+    },
+    {
+      "id": 23,
+      "name": "悬挑都市",
+      "group": "future",
+      "width": 384,
+      "height": 341,
+      "source": "sources/future.webp",
+      "box": [
+        1152,
+        683,
+        1536,
+        1024
+      ]
+    },
+    {
+      "id": 24,
+      "name": "逆流之河",
+      "group": "geography",
+      "width": 384,
+      "height": 341,
+      "source": "sources/geography.webp",
+      "box": [
+        0,
+        0,
+        384,
+        341
+      ]
+    },
+    {
+      "id": 25,
+      "name": "双面山城",
+      "group": "geography",
+      "width": 384,
+      "height": 341,
+      "source": "sources/geography.webp",
+      "box": [
+        384,
+        0,
+        768,
+        341
+      ]
+    },
+    {
+      "id": 26,
+      "name": "漂浮群岛",
+      "group": "geography",
+      "width": 384,
+      "height": 341,
+      "source": "sources/geography.webp",
+      "box": [
+        768,
+        0,
+        1152,
+        341
+      ]
+    },
+    {
+      "id": 27,
+      "name": "倒悬山脊",
+      "group": "geography",
+      "width": 384,
+      "height": 341,
+      "source": "sources/geography.webp",
+      "box": [
+        1152,
+        0,
+        1536,
+        341
+      ]
+    },
+    {
+      "id": 28,
+      "name": "工业丛林",
+      "group": "geography",
+      "width": 384,
+      "height": 342,
+      "source": "sources/geography.webp",
+      "box": [
+        0,
+        341,
+        384,
+        683
+      ]
+    },
+    {
+      "id": 29,
+      "name": "回环石桥",
+      "group": "geography",
+      "width": 384,
+      "height": 342,
+      "source": "sources/geography.webp",
+      "box": [
+        384,
+        341,
+        768,
+        683
+      ]
+    },
+    {
+      "id": 30,
+      "name": "层叠街市",
+      "group": "geography",
+      "width": 384,
+      "height": 342,
+      "source": "sources/geography.webp",
+      "box": [
+        768,
+        341,
+        1152,
+        683
+      ]
+    },
+    {
+      "id": 31,
+      "name": "飞艇之城",
+      "group": "geography",
+      "width": 384,
+      "height": 342,
+      "source": "sources/geography.webp",
+      "box": [
+        1152,
+        341,
+        1536,
+        683
+      ]
+    },
+    {
+      "id": 32,
+      "name": "瀑布阶城",
+      "group": "geography",
+      "width": 384,
+      "height": 341,
+      "source": "sources/geography.webp",
+      "box": [
+        0,
+        683,
+        384,
+        1024
+      ]
+    },
+    {
+      "id": 33,
+      "name": "异构机场",
+      "group": "geography",
+      "width": 384,
+      "height": 341,
+      "source": "sources/geography.webp",
+      "box": [
+        384,
+        683,
+        768,
+        1024
+      ]
+    },
+    {
+      "id": 34,
+      "name": "沉没环城",
+      "group": "geography",
+      "width": 384,
+      "height": 341,
+      "source": "sources/geography.webp",
+      "box": [
+        768,
+        683,
+        1152,
+        1024
+      ]
+    },
+    {
+      "id": 35,
+      "name": "碎石美术馆",
+      "group": "geography",
+      "width": 384,
+      "height": 341,
+      "source": "sources/geography.webp",
+      "box": [
+        1152,
+        683,
+        1536,
+        1024
+      ]
+    },
+    {
+      "id": 36,
+      "name": "失落地志·01",
+      "group": "panorama",
+      "width": 478,
+      "height": 227,
+      "source": "sources/panorama.webp",
+      "box": [
+        0,
+        0,
+        478,
+        227
+      ]
+    },
+    {
+      "id": 37,
+      "name": "失落地志·02",
+      "group": "panorama",
+      "width": 478,
+      "height": 227,
+      "source": "sources/panorama.webp",
+      "box": [
+        478,
+        0,
+        956,
+        227
+      ]
+    },
+    {
+      "id": 38,
+      "name": "失落地志·03",
+      "group": "panorama",
+      "width": 477,
+      "height": 227,
+      "source": "sources/panorama.webp",
+      "box": [
+        956,
+        0,
+        1433,
+        227
+      ]
+    },
+    {
+      "id": 39,
+      "name": "失落地志·04",
+      "group": "panorama",
+      "width": 478,
+      "height": 227,
+      "source": "sources/panorama.webp",
+      "box": [
+        1433,
+        0,
+        1911,
+        227
+      ]
+    },
+    {
+      "id": 40,
+      "name": "失落地志·05",
+      "group": "panorama",
+      "width": 478,
+      "height": 227,
+      "source": "sources/panorama.webp",
+      "box": [
+        0,
+        227,
+        478,
+        454
+      ]
+    },
+    {
+      "id": 41,
+      "name": "失落地志·06",
+      "group": "panorama",
+      "width": 478,
+      "height": 227,
+      "source": "sources/panorama.webp",
+      "box": [
+        478,
+        227,
+        956,
+        454
+      ]
+    },
+    {
+      "id": 42,
+      "name": "失落地志·07",
+      "group": "panorama",
+      "width": 477,
+      "height": 227,
+      "source": "sources/panorama.webp",
+      "box": [
+        956,
+        227,
+        1433,
+        454
+      ]
+    },
+    {
+      "id": 43,
+      "name": "失落地志·08",
+      "group": "panorama",
+      "width": 478,
+      "height": 227,
+      "source": "sources/panorama.webp",
+      "box": [
+        1433,
+        227,
+        1911,
+        454
+      ]
+    },
+    {
+      "id": 44,
+      "name": "失落地志·09",
+      "group": "panorama",
+      "width": 478,
+      "height": 227,
+      "source": "sources/panorama.webp",
+      "box": [
+        0,
+        454,
+        478,
+        681
+      ]
+    },
+    {
+      "id": 45,
+      "name": "失落地志·10",
+      "group": "panorama",
+      "width": 478,
+      "height": 227,
+      "source": "sources/panorama.webp",
+      "box": [
+        478,
+        454,
+        956,
+        681
+      ]
+    },
+    {
+      "id": 46,
+      "name": "失落地志·11",
+      "group": "panorama",
+      "width": 477,
+      "height": 227,
+      "source": "sources/panorama.webp",
+      "box": [
+        956,
+        454,
+        1433,
+        681
+      ]
+    },
+    {
+      "id": 47,
+      "name": "失落地志·12",
+      "group": "panorama",
+      "width": 478,
+      "height": 227,
+      "source": "sources/panorama.webp",
+      "box": [
+        1433,
+        454,
+        1911,
+        681
+      ]
+    }
+  ]
+}
