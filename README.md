@@ -4,7 +4,7 @@
 
 ## 打开
 
-直接打开 **`无何有之乡.html`**，约 7.7 MiB，样式、逻辑、图像均已内嵌。支持现代桌面和手机浏览器，不需要联网、密钥或后端。手机聊天软件的文档预览器可能不执行 JavaScript，需使用浏览器打开。
+直接打开 **`无何有之乡.html`**，约 8 MiB，样式、逻辑、图像均已内嵌。支持现代桌面和手机浏览器，不需要联网、密钥或后端。手机聊天软件的文档预览器可能不执行 JavaScript，需使用浏览器打开。
 
 开发版保留 `index.html`、`style.css`、`app.js`、`assets/ink-library.js` 和 `assets/scroll-materials.js` 的相对位置。可用以下命令启动静态服务：
 
@@ -52,3 +52,11 @@ python3 -m http.server 8000 --bind 0.0.0.0
 `.github/workflows/pages.yml` 在推送 `main` 后打包并部署 GitHub Pages，发布包仅含入口、样式、逻辑及两份画材数据。GitHub 仓库 Settings → Pages 的 Source 必须设为 **GitHub Actions**。预期网站地址为 `https://tao0706-debug.github.io/expert-octo-spork/`；只有 Pages 已启用、部署成功并完成公网访问验证后，才可视为已上线。
 
 此云环境目前需要允许 `api.github.com` 以设置和查询 Pages，并允许 `tao0706-debug.github.io` 以验证公网结果。网络配置草稿已保存；保存草稿不会自动更新运行实例。
+
+## 云水虚实与手机游观
+
+中景水脉的宽度、透墨率和三处连通节点随卷变化，远岸以淡墨显隐，避免形成贯穿整幅的纯空白带。另有十二幅新生成的 AI 水墨素材：六种奇幻生物与六种雾桥、浮岛、倒瀑等连接景象。每卷选择三种生物与六处浓淡不等的过渡场景，局部雾窗让生物可辨，同时保持大局留白。它们与原有建筑共用墨色、纸纹和羽化方式。
+
+桌面完整展示横卷；700px 以下屏幕默认以约 54svh、至少 330px 高度游观同一张横卷，可原生左右滑动。下方缩略图指示视野并可定位；“全卷”切换到完整构图，“游观”返回大幅画面。滑动手势不会触发重新生成，旋转屏幕后自动适配，收藏始终导出完整原卷。
+
+新增资源为 `assets/wonders-library.js` 与 `assets/sources/wonders.webp`；执行 `python3 scripts/prepare_wonders.py` 可重新提取打包。发布包和单文件生成脚本均已包含这份资源。公网资源使用版本参数刷新 CSS 与逻辑缓存。

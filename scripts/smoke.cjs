@@ -23,9 +23,13 @@ async function ready(page) { await page.waitForFunction(() => window.inkAtlas?.r
     const errors = []; page.on('pageerror', error => errors.push(error.message));
     await page.goto(url); await ready(page);
     assert.equal(await page.evaluate(() => inkAtlas.materialCount), 48);
+    assert.equal(await page.evaluate(() => inkAtlas.wonderCount), 12);
     let recipe = await page.evaluate(() => inkAtlas.recipe);
     assert.equal(recipe.regions.length, 24);
     assert.equal(recipe.reservedSpace, true);
+    assert.equal(recipe.creatures.length, 3); assert.equal(recipe.passages.length, 6);
+    assert.equal(new Set(recipe.creatures.map(c => c.id)).size, 3);
+    assert(Math.max(...recipe.passages.map(c => c.opacity)) - Math.min(...recipe.passages.map(c => c.opacity)) > .1);
     assert(['溪山平遠','一水兩岸','雲嶺回環'].includes(recipe.composition));
     assert(await page.locator('.collector-seal').evaluate(e => getComputedStyle(e).backgroundImage.length > 100));
     assert.equal(new Set(recipe.regions.map(r => r.id)).size, 24);
@@ -69,6 +73,7 @@ async function ready(page) { await page.waitForFunction(() => window.inkAtlas?.r
     assert.equal(await page.evaluate(() => inkAtlas.materialCount), 48);
     await page.selectOption('#mode', 'fold'); await page.click('#regenerate'); await ready(page);
     assert.equal(await page.evaluate(() => inkAtlas.recipe.mode), 'fold');
+    assert.equal(await page.evaluate(() => inkAtlas.wonderCount), 12);
     const seeds = new Set();
     for (let i = 0; i < 4; i++) {
       await page.click('#regenerate'); await ready(page);
@@ -76,6 +81,43 @@ async function ready(page) { await page.waitForFunction(() => window.inkAtlas?.r
       seeds.add(r.seed); assert.equal(new Set(r.regions.map(r => r.id)).size, 24);
     }
     assert.equal(seeds.size, 4); assert.deepEqual(errors, []);
-    console.log(`PASS: 48 assets, 24 unique regions, all 3 modes, ${delta.toFixed(1)} mean pixel change, animated dissolve, 3320×1450 PNG, detail viewer, unified scroll, hidden library, mobile, sound, offline standalone + 5 recompositions. No script errors.`);
+    const phone = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+    const handheld = await phone.newPage(); const phoneErrors = [];
+    handheld.on('pageerror', error => phoneErrors.push(error.message));
+    await handheld.emulateMedia({ reducedMotion: 'reduce' });
+    await handheld.goto(url); await ready(handheld);
+    const bounds = await handheld.locator('#painting-viewport').boundingBox();
+    const metrics = await handheld.locator('#painting-viewport').evaluate(e => ({ height: e.clientHeight, width: e.clientWidth, total: e.scrollWidth, scroll: e.scrollLeft }));
+    assert(metrics.height > 380, `Mobile painting too short: ${metrics.height}`);
+    assert(metrics.total > metrics.width * 2, 'Mobile painting was shrunk to a full-width strip');
+    const beforePan = await handheld.evaluate(() => inkAtlas.recipe.seed);
+    const touch = await phone.newCDPSession(handheld);
+    const y = bounds.y + bounds.height * .45;
+    await touch.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x: 280, y }] });
+    for (let i = 1; i <= 8; i++) {
+      await touch.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: 280 - i * 23, y }] });
+      await handheld.waitForTimeout(20);
+    }
+    await touch.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+    await handheld.waitForTimeout(250);
+    assert(await handheld.locator('#painting-viewport').evaluate((e, old) => e.scrollLeft > old + 45, metrics.scroll), 'Native horizontal swipe did not pan');
+    assert.equal(await handheld.evaluate(() => inkAtlas.recipe.seed), beforePan, 'Swipe accidentally regenerated the painting');
+    await handheld.locator('#miniature').tap({ position: { x: 91, y: 18 } });
+    await handheld.waitForTimeout(100);
+    const mapped = await handheld.locator('#painting-viewport').evaluate(e => e.scrollLeft / (e.scrollWidth - e.clientWidth));
+    assert(mapped > .75, `Miniature navigation did not move to right side: ${mapped}`);
+    await handheld.locator('#overview-toggle').tap();
+    await handheld.waitForFunction(() => document.querySelector('#painting-viewport').clientHeight < 200);
+    assert.equal(await handheld.getAttribute('#overview-toggle', 'aria-pressed'), 'true');
+    assert.equal(await handheld.evaluate(() => inkAtlas.recipe.seed), beforePan, 'Overview changed the actual painting');
+    await handheld.locator('#overview-toggle').tap();
+    await handheld.waitForFunction(() => document.querySelector('#painting-viewport').clientHeight > 380);
+    await handheld.setViewportSize({ width: 844, height: 390 });
+    assert(await handheld.locator('#painting-viewport').evaluate(e => e.scrollWidth <= e.clientWidth + 1), 'Landscape layout did not return to panorama');
+    await handheld.setViewportSize({ width: 390, height: 844 });
+    assert.equal(await handheld.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+    await handheld.screenshot({ path: '/tmp/atlas-phone-scroll.png', fullPage: true });
+    assert.deepEqual(phoneErrors, []); await phone.close();
+    console.log(`PASS: 48 assets, 24 unique regions, all 3 modes, ${delta.toFixed(1)} mean pixel change, animated dissolve, 3320×1450 PNG, detail viewer, unified scroll, hidden library, 12 wonders, 3 living presences, real touch swipe without regeneration, miniature navigation, overview, orientation change, sound, offline standalone + 5 recompositions. No script errors.`);
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

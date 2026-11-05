@@ -7,6 +7,10 @@
   ctx.fillStyle = '#dbc18c'; ctx.fillRect(0, 0, W, H);
   let paperImage, titleImage, inscriptionImage, sealImage;
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const wonders = [];
+  const phoneView = matchMedia('(max-width: 700px)');
+  const viewport = $('painting-viewport');
+  let pointerOrigin = null, lastPanAt = -Infinity, mobileInitialized = false;
   const library = [], backdrop = document.createElement('canvas');
   let current, next, busy = true, grid = false, round = 1;
   let seed = newSeed(), rng, intensity = 0.68, mode = 'fold';
@@ -119,7 +123,7 @@
     const chaos = mode === 'wander' ? intensity * .22 : mode === 'rift' ? .40 + intensity * .58 : intensity * .64;
     const layout = Math.floor(rand(3)), phase = rand(0, 6.28), mirror = rand() > .5;
     const recipe = { seed: s, mode, intensity, regions: [], layers: 0, layout,
-      composition: ['溪山平遠', '一水兩岸', '雲嶺回環'][layout], reservedSpace: true };
+      composition: ['溪山平遠', '一水兩岸', '雲嶺回環'][layout], reservedSpace: true, passages: [], creatures: [] };
     const order = shuffle(library.map((_, i) => i)), layers = [];
     // 24 independent territories, composed as connected ridges rather than a visible grid.
     // Eight distant ranges, ten main settlements, six near-bank fragments.
@@ -159,6 +163,9 @@
       q.globalCompositeOperation = 'source-over'; q.globalAlpha = layer.opacity;
       paintFragment(q, asset.image, layer.w, h, layer.warp, layer.phase); q.restore();
     }
+    // Passage knots allow the hills to intermittently appear through the cloud river.
+    const crossings = [.21 + rand(-.035, .035), .44 + rand(-.04, .04), .70 + rand(-.04, .04)];
+    const livingWindows = [.29, .53, .74].map(u => ({ u: u + rand(-.025, .025), dy: rand(-20, 20) }));
     // One continuous winding river and mist field crosses every local boundary.
     // It removes ink, revealing the SAME paper underneath, never white patch backgrounds.
     const mask = makeCanvas(800, 300), m = mask.getContext('2d'), data = m.createImageData(800, 300);
@@ -166,21 +173,57 @@
       for (let x = 0; x < 800; x++) {
         const u = x / 800, v = y / 300;
         const water = .595 + Math.sin(u * 7.2 + phase) * .102;
-        const river = 1 - smooth(.025, .112, Math.abs(v - water));
+        const width = .10 + Math.sin(u * 15 + phase) * .018 + Math.sin(u * 7 + phase) * .012;
+        const river = 1 - smooth(.009, width, Math.abs(v - water));
+        const crossing = Math.max(...crossings.map(c => Math.exp(-Math.pow((u - c) / .033, 2))));
+        // Preserve faint terrain, and stronger vertical connections at three irregular knots.
+        const attenuation = .88 + Math.sin(u * 18 + phase) * .07 - crossing * .30;
         const edge = smooth(.025, .07, u) * (1 - smooth(.82, .89, u)) * smooth(.07, .17, v) * (1 - smooth(.86, .96, v));
         const sky = 1 - Math.exp(-Math.pow((u - .12) / .23, 2) - Math.pow((v - .14) / .18, 2)) * .7;
         const fog = (1 - smooth(.006, .05, Math.abs(v - .325 - Math.sin(u * 9 + phase) * .03))) * .12;
-        const retain = edge * (1 - river * .97) * sky * (1 - fog);
+        const pocket = Math.max(...livingWindows.map(a => Math.exp(-Math.pow((u - a.u) / .055, 2) - Math.pow((v - water - a.dy / H) / .085, 2))));
+        const retain = edge * (1 - river * attenuation) * sky * (1 - fog) * (1 - pocket * .64);
         data.data[(y * 800 + x) * 4 + 3] = Math.round(retain * 255);
       }
     }
     m.putImageData(data, 0, 0); q.globalCompositeOperation = 'destination-in'; q.drawImage(mask, 0, 0, W, H);
-    p.drawImage(ink, 0, 0); writeColophon(p, s);
+    p.drawImage(ink, 0, 0);
+    paintPassages(p, crossings, phase, chaos, recipe, livingWindows);
+    writeColophon(p, s);
     // Slight pigment abrasion, under the same fiber pattern across the entire painting.
     p.save(); p.globalCompositeOperation = 'soft-light'; p.globalAlpha = .12;
     p.drawImage(paperImage, 0, 0, W, H); p.restore();
-    recipe.layers = layers.length;
+    recipe.layers = layers.length + recipe.passages.length + recipe.creatures.length;
     return { canvas: c, recipe };
+  }
+  function paintPassages(p, crossings, phase, chaos, recipe, livingWindows) {
+    if (wonders.length < 12) return;
+    const creatures = shuffle([0, 1, 2, 3, 4, 5]);
+    const connections = shuffle([6, 7, 8, 9, 10, 11]);
+    const waterAt = u => (.595 + Math.sin(u * 7.2 + phase) * .102) * H;
+    function paint(id, u, dy, w, opacity, angle = 0) {
+      const asset = wonders[id], h = w / asset.ratio;
+      p.save(); p.translate(u * W, waterAt(u) + dy); p.rotate(angle);
+      p.globalAlpha = opacity;
+      paintFragment(p, asset.image, w, h, rand(.002, .012) * chaos, rand(6.28));
+      p.restore();
+      return { id, x: u * W, y: waterAt(u) + dy, w, opacity };
+    }
+    // The pale span reaches both shores; do not erase it with the river's void mask.
+    for (let i = 0; i < crossings.length; i++) {
+      const u = crossings[i];
+      recipe.passages.push(paint(connections[i], u, rand(-22, 18), rand(340, 490), rand(.34, .57), rand(-.13, .13)));
+    }
+    // Living presences stay small enough to belong to the landscape, rather than portraits.
+    for (let i = 0; i < 3; i++) {
+      const { u, dy } = livingWindows[i];
+      recipe.creatures.push(paint(creatures[i], u, dy, rand(270, 350), rand(.68, .85), rand(-.12, .12)));
+    }
+    // Receding echoes: an island or a distant rail slips back under the cloud veil.
+    for (let i = 0; i < 3; i++) {
+      const u = rand(.12, .76);
+      recipe.passages.push(paint(connections[(i + 3) % 6], u, rand(-45, 60), rand(210, 330), rand(.10, .23)));
+    }
   }
   function paintFragment(p, image, w, h, warp, phase) {
     if (warp < .009) { p.drawImage(image, -w / 2, -h / 2, w, h); return; }
@@ -206,6 +249,7 @@
   function renderStill() {
     if (canvas.width !== W) { canvas.width = W; canvas.height = H; ctx = canvas.getContext('2d', { alpha: false }); }
     ctx.drawImage(current, 0, 0); if (grid) drawGrid();
+    updateMiniature();
   }
   function updateInfo() {
     $('generation').textContent = round < 11 ? ['零','一','二','三','四','五','六','七','八','九','十'][round] : String(round);
@@ -279,13 +323,65 @@
       animationFrame = requestAnimationFrame(animation);
     });
   }
-  $('regenerate').addEventListener('click', regenerate); canvas.addEventListener('click', regenerate);
+  $('regenerate').addEventListener('click', regenerate);
+  viewport.addEventListener('pointerdown', e => { pointerOrigin = { x: e.clientX, y: e.clientY, scroll: viewport.scrollLeft }; }, { passive: true });
+  viewport.addEventListener('pointermove', e => {
+    if (pointerOrigin && Math.hypot(e.clientX - pointerOrigin.x, e.clientY - pointerOrigin.y) > 9) lastPanAt = performance.now();
+  }, { passive: true });
+  viewport.addEventListener('pointercancel', () => { lastPanAt = performance.now(); pointerOrigin = null; }, { passive: true });
+  canvas.addEventListener('click', () => {
+    const moved = pointerOrigin && Math.abs(viewport.scrollLeft - pointerOrigin.scroll) > 8;
+    pointerOrigin = null;
+    if (!moved && performance.now() - lastPanAt > 400) regenerate();
+  });
   canvas.addEventListener('keydown', e => { if (e.code === 'Enter') regenerate(); });
   document.addEventListener('keydown', e => {
     if (e.code === 'Space' && !$('viewer').open && !/BUTTON|INPUT|TEXTAREA|SELECT|A/.test(e.target.tagName)) {
       e.preventDefault(); regenerate();
     }
   });
+  function updateMiniature() {
+    if (current) {
+      const map = $('miniature-canvas'), m = map.getContext('2d');
+      m.drawImage(current, 0, 0, map.width, map.height);
+    }
+    updateNavigator();
+  }
+  function updateNavigator() {
+    const width = viewport.scrollWidth || 1;
+    $('navigator-window').style.width = `${Math.min(100, viewport.clientWidth / width * 100)}%`;
+    $('navigator-window').style.left = `${viewport.scrollLeft / width * 100}%`;
+  }
+  function setOverview(overview) {
+    viewport.classList.toggle('overview', overview);
+    $('overview-toggle').setAttribute('aria-pressed', String(overview));
+    $('overview-toggle').textContent = overview ? '游觀' : '全卷';
+    requestAnimationFrame(() => {
+      if (!overview) viewport.scrollLeft = (viewport.scrollWidth - viewport.clientWidth) * .45;
+      updateNavigator();
+    });
+  }
+  $('overview-toggle').onclick = () => setOverview(!viewport.classList.contains('overview'));
+  $('miniature').onclick = e => {
+    const bounds = $('miniature').getBoundingClientRect();
+    const position = e.detail === 0 ? .5 : Math.max(0, Math.min(1, (e.clientX - bounds.left) / bounds.width));
+    if (viewport.classList.contains('overview')) setOverview(false);
+    requestAnimationFrame(() => {
+      viewport.scrollTo({ left: position * viewport.scrollWidth - viewport.clientWidth / 2, behavior: reduced.matches ? 'auto' : 'smooth' });
+    });
+  };
+  viewport.addEventListener('scroll', () => { lastPanAt = performance.now(); updateNavigator(); }, { passive: true });
+  viewport.addEventListener('keydown', e => {
+    if (e.target !== viewport || !phoneView.matches || !['ArrowLeft', 'ArrowRight'].includes(e.key)) return;
+    e.preventDefault(); viewport.scrollBy({ left: viewport.clientWidth * (e.key === 'ArrowLeft' ? -.65 : .65), behavior: reduced.matches ? 'auto' : 'smooth' });
+  });
+  function layoutChanged() {
+    if (phoneView.matches && !mobileInitialized) {
+      viewport.scrollLeft = (viewport.scrollWidth - viewport.clientWidth) * .45; mobileInitialized = true;
+    } else if (!phoneView.matches) mobileInitialized = false;
+    updateNavigator();
+  }
+  window.addEventListener('resize', layoutChanged, { passive: true });
   $('intensity').addEventListener('input', () => { $('intensity-value').textContent = `${$('intensity').value}%`; });
   $('grid').onclick = () => {
     grid = !grid; $('grid').setAttribute('aria-pressed', String(grid));
@@ -363,11 +459,15 @@
         library.push(inkAsset(img, i));
         if (i % 6 === 0) { $('transition-label').textContent = '潤 墨'; await new Promise(resolve => setTimeout(resolve, 0)); }
       }
+      if (!window.INK_WONDERS || INK_WONDERS.tiles.length !== 12) throw new Error('雲中異境未至');
+      for (let i = 0; i < INK_WONDERS.tiles.length; i++) {
+        wonders.push(inkAsset(await imageFrom(INK_WONDERS.tiles[i].src), i));
+      }
       const bg = await imageFrom(INK_ASSETS.panorama);
       backdrop.width = bg.width; backdrop.height = bg.height;
       backdrop.getContext('2d').drawImage(inkAsset(bg, -1).image, 0, 0);
       const result = makeScene(seed);
-      next = result.canvas; lastRecipe = result.recipe; finish();
+      next = result.canvas; lastRecipe = result.recipe; finish(); layoutChanged();
 
     } catch (e) {
       $('state').textContent = '画材加载失败'; $('transition-label').textContent = '请保留完整文件夹后重新打开';
@@ -380,6 +480,6 @@
     $('work-note-toggle').setAttribute('aria-expanded', String(!open)); $('work-note').hidden = open;
   };
   // Read-only diagnostics used by the smoke test and useful for future material curation.
-  window.inkAtlas = { get ready() { return !busy && !!current; }, get recipe() { return currentRecipe; }, get materialCount() { return library.length; } };
+  window.inkAtlas = { get ready() { return !busy && !!current; }, get recipe() { return currentRecipe; }, get materialCount() { return library.length; }, get wonderCount() { return wonders.length; } };
   init();
 })();

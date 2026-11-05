@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#c9ad75">
-<meta name="description" content="无何有之乡。一纸虚构山河，二十四境，同入一卷。"><title>無何有之鄉 · 虚构山河卷</title><link rel="stylesheet" href="style.css">
+<meta name="description" content="无何有之乡。一纸虚构山河，二十四境，同入一卷。"><title>無何有之鄉 · 虚构山河卷</title><link rel="stylesheet" href="style.css?v=mist-4">
 </head>
 <body>
 <main class="scroll-page">
@@ -15,7 +15,8 @@
     <p class="opening-date">丙午　秋日<br><span>虛構地志之一</span></p>
   </header>
   <section class="artwork" aria-label="虚构山河长卷">
-    <div class="canvas-wrap"><canvas id="landscape" width="3200" height="1200" tabindex="0" role="button" aria-label="水墨长卷，点击或按回车另造一境" aria-busy="true"></canvas><div id="transition-label" aria-live="polite">展 卷</div></div>
+    <div class="painting-viewport" id="painting-viewport" tabindex="0" role="region" aria-label="长卷游观区域，手机可左右滑动"><div class="canvas-wrap"><canvas id="landscape" width="3200" height="1200" tabindex="0" role="button" aria-label="水墨长卷，点击或按回车另造一境" aria-busy="true"></canvas><div id="transition-label" aria-live="polite">展 卷</div></div></div>
+    <div class="mobile-navigation"><span>左右展卷，輕觸造境</span><button id="miniature" aria-label="点击缩略图定位画卷"><canvas id="miniature-canvas" width="320" height="120" aria-hidden="true"></canvas><i id="navigator-window" aria-hidden="true"></i></button><button id="overview-toggle" aria-pressed="false">全卷</button></div>
     <p id="load-error" role="alert" hidden></p>
   </section>
   <section class="closing">
@@ -31,5 +32,5 @@
   <p id="work-note" hidden>以《天書》似是而非之意，寄虛構山河於一紙。此為獨立數字作品，非古畫，亦非徐冰作品。水墨圖像由 AI 預先創作，展卷時依山勢、水脈與留白在本機重新造境。</p>
 </main>
 <dialog id="viewer" aria-labelledby="viewer-title"><div class="viewer-toolbar"><span id="viewer-title">展卷細觀 <small>原大後可左右滑動</small></span><div><button id="zoom-out">全卷</button><button id="zoom-in">原大 ＋</button><button id="viewer-close" aria-label="关闭细观">收卷 ×</button></div></div><div class="viewer-scroll"><img id="detail-image" alt="当前完整水墨画卷"></div></dialog>
-<script src="assets/ink-library.js"></script><script src="assets/scroll-materials.js"></script><script src="app.js"></script>
+<script src="assets/ink-library.js"></script><script src="assets/scroll-materials.js"></script><script src="assets/wonders-library.js"></script><script src="app.js?v=mist-4"></script>
 </body></html>
