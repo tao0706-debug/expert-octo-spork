@@ -70,3 +70,7 @@ python3 -m http.server 8000 --bind 0.0.0.0
 维护时从 https://github.com/DraftingDreamer/FontDyslexicKai 获取字体及许可，执行 `python3 scripts/prepare_font.py <源字体.ttf>` 后再构建单文件版。字体维护需要 fontTools 与 Brotli，网页本身不需要安装。新增界面文字后请重新裁字以覆盖新字。
 
 主要按键有边框、较大的文字和说明，手机触控目标至少 44px，主操作独占一行。画面上方提供“观画小引”和“如何游观”展开说明；缩略图、全卷、细观、收藏与下卷意境均保留。
+
+## 右侧题跋单独修订
+
+右侧小字题跋现改为瘦金体意趣的细劲楷书、低起小款和轻褪朱印；主标题、界面正楷字库、画材和布局不变。检索范围、来源及无法取得高清卷后局部的限制，详见 `docs/colophon-reference.md`。这份题跋是原创风格重绘，不声称临摹《清明上河图》真迹。维护脚本为 `scripts/prepare_colophon.py`。

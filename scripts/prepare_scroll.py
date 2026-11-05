@@ -26,5 +26,7 @@ def encode(img):
 
 payload = dict(paper=encode(images['paper']), title=encode(images['letters'].crop((130,0,520,1024))),
                inscription=encode(images['letters'].crop((575,0,1536,1024))), seals=encode(images['seals']))
+override = out/'colophon-shoujin.webp'
+if override.exists(): payload['inscription'] = encode(Image.open(override))
 (root/'assets'/'scroll-materials.js').write_text('window.SCROLL_MATERIALS='+json.dumps(payload,separators=(',',':'))+';\n')
 print('Embedded antique paper, brush title, inscription, six seal impressions')

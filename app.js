@@ -105,8 +105,11 @@
   function writeColophon(p, s) {
     p.save(); p.globalAlpha = .82; p.globalCompositeOperation = 'multiply';
     p.drawImage(titleImage, 2950, 135, 155, 407);
-    p.drawImage(inscriptionImage, 2755, 615, 173, 205);
     p.restore();
+    p.save(); p.globalAlpha = .78; p.globalCompositeOperation = 'multiply';
+    p.drawImage(inscriptionImage, 2748, 592, 188, 302);
+    p.restore();
+    stamp(p, 4, 2820, 940, 42, -.025, .5);
     stamp(p, 0, 3025, 615, 76, -.035, .85);
     stamp(p, 1, 3020, 700, 64, .045, .74);
     stamp(p, 4, 2525, 1025, 62, -.06, .62);
