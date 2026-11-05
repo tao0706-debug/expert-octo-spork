@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#c9ad75">
-<meta name="description" content="无何有之乡。一纸虚构山河，二十四境，同入一卷。"><title>無何有之鄉 · 虚构山河卷</title><link rel="stylesheet" href="style.css?v=mist-4">
+<meta name="description" content="无何有之乡。一纸虚构山河，二十四境，同入一卷。"><title>無何有之鄉 · 虚构山河卷</title><link rel="stylesheet" href="style.css?v=brush-5">
 </head>
 <body>
 <main class="scroll-page">
@@ -14,6 +14,11 @@
     <div class="opening-title"><span>山 水 無 定</span><small>一紙可臥遊</small></div>
     <p class="opening-date">丙午　秋日<br><span>虛構地志之一</span></p>
   </header>
+  <section class="view-guide" aria-label="观画指引">
+    <p><b>觀畫小引</b><span class="desktop-guide">輕點畫面，另造一境；按空格亦可落墨。</span><span class="phone-guide">左右滑動游觀，輕點畫面即可另造一境。</span></p>
+    <button id="guide-toggle" aria-expanded="false" aria-controls="guide-details">如何遊觀 ＋</button>
+    <div id="guide-details" hidden><p>一、點「另造一境」，二十四境同時重生。<br>二、手機可左右滑動畫卷，點「全卷」看完整構圖。<br>三、點「放大細觀」看筆觸，點「收藏此卷」保存整幅畫。<br>四、下方可選平遠、奇境或幻境；選好後再造一卷。</p></div>
+  </section>
   <section class="artwork" aria-label="虚构山河长卷">
     <div class="painting-viewport" id="painting-viewport" tabindex="0" role="region" aria-label="长卷游观区域，手机可左右滑动"><div class="canvas-wrap"><canvas id="landscape" width="3200" height="1200" tabindex="0" role="button" aria-label="水墨长卷，点击或按回车另造一境" aria-busy="true"></canvas><div id="transition-label" aria-live="polite">展 卷</div></div></div>
     <div class="mobile-navigation"><span>左右展卷，輕觸造境</span><button id="miniature" aria-label="点击缩略图定位画卷"><canvas id="miniature-canvas" width="320" height="120" aria-hidden="true"></canvas><i id="navigator-window" aria-hidden="true"></i></button><button id="overview-toggle" aria-pressed="false">全卷</button></div>
@@ -22,8 +27,17 @@
   <section class="closing">
     <div class="afterword"><p>所見皆似曾相識<br>所至皆無可抵達</p><span>雲生不知處，舟渡未有鄉。</span></div>
     <div class="interaction">
-      <div class="actions" aria-label="观画操作"><button id="regenerate" disabled>另造一境<span>落墨 ↗</span></button><button id="inspect" disabled>細觀</button><button id="save" disabled>藏卷</button><button id="sound" aria-pressed="false">聽風<span>关闭</span></button></div>
-      <div class="composition-tools" aria-label="下卷意境"><label for="mode">境隨心轉</label><select id="mode"><option value="wander">平遠 · 山水相續</option><option value="fold" selected>奇境 · 萬象倒懸</option><option value="rift">幻境 · 天地錯置</option></select><label class="range-label" for="intensity">幻度</label><input id="intensity" type="range" min="0" max="100" value="68"><output id="intensity-value" for="intensity">68%</output></div>
+      <div class="actions" aria-label="观画操作">
+        <button id="regenerate" disabled><span class="action-title">另造一境 ↻</span><small>點此落墨，每卷皆不同</small></button>
+        <button id="inspect" disabled><span class="action-title">放大細觀</span><small>查看筆墨細節</small></button>
+        <button id="save" disabled><span class="action-title">收藏此卷</span><small>保存完整畫卷</small></button>
+        <button id="sound" aria-pressed="false"><span class="action-title">聽風</span><small id="sound-status">聲境已關閉</small></button>
+      </div>
+      <p class="action-hint">可先選下卷意境，再點「另造一境」。</p>
+      <div class="composition-tools" aria-label="下卷意境">
+        <div class="choice-group"><label for="mode">境隨心轉</label><select id="mode"><option value="wander">平遠 · 山水相續</option><option value="fold" selected>奇境 · 萬象倒懸</option><option value="rift">幻境 · 天地錯置</option></select></div>
+        <div class="choice-group"><label class="range-label" for="intensity">幻度</label><input id="intensity" type="range" min="0" max="100" value="68"><output id="intensity-value" for="intensity">68%</output></div>
+      </div>
       <div class="quiet-status"><span id="state" role="status">正在展卷</span><span>第 <b id="generation">一</b> 卷</span><span id="composition-name">雲水相生</span><button id="grid" aria-pressed="false"><span>觀二十四境</span></button></div>
     </div>
     <div class="collector-note"><span class="collector-seal" aria-hidden="true"></span><p>山河寄意<br>不問來處</p></div>
@@ -32,5 +46,5 @@
   <p id="work-note" hidden>以《天書》似是而非之意，寄虛構山河於一紙。此為獨立數字作品，非古畫，亦非徐冰作品。水墨圖像由 AI 預先創作，展卷時依山勢、水脈與留白在本機重新造境。</p>
 </main>
 <dialog id="viewer" aria-labelledby="viewer-title"><div class="viewer-toolbar"><span id="viewer-title">展卷細觀 <small>原大後可左右滑動</small></span><div><button id="zoom-out">全卷</button><button id="zoom-in">原大 ＋</button><button id="viewer-close" aria-label="关闭细观">收卷 ×</button></div></div><div class="viewer-scroll"><img id="detail-image" alt="当前完整水墨画卷"></div></dialog>
-<script src="assets/ink-library.js"></script><script src="assets/scroll-materials.js"></script><script src="assets/wonders-library.js"></script><script src="app.js?v=mist-4"></script>
+<script src="assets/font-library.js?v=brush-5"></script><script src="assets/ink-library.js?v=brush-5"></script><script src="assets/scroll-materials.js?v=brush-5"></script><script src="assets/wonders-library.js?v=brush-5"></script><script src="app.js?v=brush-5"></script>
 </body></html>

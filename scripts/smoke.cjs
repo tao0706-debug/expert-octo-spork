@@ -33,6 +33,13 @@ async function ready(page) { await page.waitForFunction(() => window.inkAtlas?.r
     assert(['溪山平遠','一水兩岸','雲嶺回環'].includes(recipe.composition));
     assert(await page.locator('.collector-seal').evaluate(e => getComputedStyle(e).backgroundImage.length > 100));
     assert.equal(new Set(recipe.regions.map(r => r.id)).size, 24);
+    assert(await page.evaluate(() => Array.from(document.fonts).some(f => f.family.replaceAll('"', '') === 'Atlas ZhengKai' && f.status === 'loaded')), 'Embedded regular-script font did not load');
+    for (const id of ['regenerate', 'inspect', 'save', 'sound']) {
+      const target = await page.locator('#'+id).boundingBox();
+      assert(target.width >= 90 && target.height >= 70, `${id} control is too small`);
+    }
+    await page.click('#guide-toggle'); assert.equal(await page.locator('#guide-details').isVisible(), true);
+    await page.click('#guide-toggle'); assert.equal(await page.locator('#guide-details').isVisible(), false);
     const initial = await sample(page);
     await page.selectOption('#mode', 'rift'); await page.locator('#intensity').fill('95');
     await page.click('#regenerate');
@@ -86,6 +93,10 @@ async function ready(page) { await page.waitForFunction(() => window.inkAtlas?.r
     handheld.on('pageerror', error => phoneErrors.push(error.message));
     await handheld.emulateMedia({ reducedMotion: 'reduce' });
     await handheld.goto(url); await ready(handheld);
+    assert(await handheld.evaluate(() => Array.from(document.fonts).some(f => f.family.replaceAll('"', '') === 'Atlas ZhengKai' && f.status === 'loaded')));
+    for (const id of ['regenerate','inspect','save','sound','overview-toggle','guide-toggle']) {
+      const target = await handheld.locator('#'+id).boundingBox(); assert(target.height >= 44, `${id} touch target below 44px`);
+    }
     const bounds = await handheld.locator('#painting-viewport').boundingBox();
     const metrics = await handheld.locator('#painting-viewport').evaluate(e => ({ height: e.clientHeight, width: e.clientWidth, total: e.scrollWidth, scroll: e.scrollLeft }));
     assert(metrics.height > 380, `Mobile painting too short: ${metrics.height}`);
@@ -118,6 +129,6 @@ async function ready(page) { await page.waitForFunction(() => window.inkAtlas?.r
     assert.equal(await handheld.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
     await handheld.screenshot({ path: '/tmp/atlas-phone-scroll.png', fullPage: true });
     assert.deepEqual(phoneErrors, []); await phone.close();
-    console.log(`PASS: 48 assets, 24 unique regions, all 3 modes, ${delta.toFixed(1)} mean pixel change, animated dissolve, 3320×1450 PNG, detail viewer, unified scroll, hidden library, 12 wonders, 3 living presences, real touch swipe without regeneration, miniature navigation, overview, orientation change, sound, offline standalone + 5 recompositions. No script errors.`);
+    console.log(`PASS: 48 assets, 24 unique regions, all 3 modes, ${delta.toFixed(1)} mean pixel change, animated dissolve, 3320×1450 PNG, detail viewer, unified scroll, hidden library, embedded Kai font, large controls and guide, 12 wonders, 3 living presences, real touch swipe without regeneration, miniature navigation, overview, orientation change, sound, offline standalone + 5 recompositions. No script errors.`);
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exitCode = 1; });

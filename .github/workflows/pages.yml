@@ -26,14 +26,16 @@ jobs:
         run: |
           mkdir -p _site/assets
           cp index.html style.css app.js _site/
-          cp assets/ink-library.js assets/scroll-materials.js assets/wonders-library.js _site/assets/
+          cp assets/font-library.js assets/ink-library.js assets/scroll-materials.js assets/wonders-library.js _site/assets/
+          mkdir -p _site/assets/fonts
+          cp assets/fonts/LICENSE.txt assets/fonts/NOTICE.txt _site/assets/fonts/
           touch _site/.nojekyll
           python3 - <<'PY'
           from pathlib import Path
           page = Path('_site/index.html').read_text(encoding='utf-8')
           assert '<meta charset="utf-8">' in page
           assert '無何有之鄉' in page
-          for asset in ('style.css', 'app.js', 'assets/ink-library.js', 'assets/scroll-materials.js', 'assets/wonders-library.js'):
+          for asset in ('style.css', 'app.js', 'assets/font-library.js', 'assets/ink-library.js', 'assets/scroll-materials.js', 'assets/wonders-library.js'):
               assert Path('_site', asset).is_file(), asset
           PY
       - uses: actions/configure-pages@v5

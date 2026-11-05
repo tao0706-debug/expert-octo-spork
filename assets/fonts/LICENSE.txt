@@ -1,0 +1,172 @@
+================================================================================
+DyslexicKai Mono (閱善楷等寬) — LICENSE / 授權說明
+Copyright 2026 The DyslexicKai Project Authors, with Reserved Font Name "DyslexicKai".
+================================================================================
+
+本字型為「雙重授權」之衍生作品（DUAL-LICENSED DERIVATIVE WORK）。
+
+兩個來源字型的授權條款互不相容，無法統一為單一授權（詳見文末「為何採雙重授權」），
+因此本字型的不同部分各自沿用其來源的授權：
+
+  (A) 中文 CJK 字身（漢字、假名、中文標點等）
+      來源：匯文正楷 Huiwen-ZhengKai
+      版權：Copyright 2022 TerryWang
+      授權：作者自訂授權（見下方 PART A）
+
+  (B) 拉丁字母、數字、半形符號，以及 ⸺（雙連字號，U+2E3A）
+      來源：OpenDyslexic 3
+      版權：Copyright Abelardo Gonzalez
+      授權：SIL Open Font License, Version 1.1（見下方 PART B）
+
+本專案作者的修改部分（合併、縮放、半形寬度正規化、命名與度量調整、新增 U+2E3A
+字形）隨對應來源部分採相同授權釋出。
+
+使用本字型前，請同時遵守 PART A 與 PART B 兩套條款中「較嚴格」的限制。
+最重要的實務結論：
+  * 可免費使用（含商業用途，如排版、印刷、出版、影片、嵌入軟體／文件／裝置）。
+  * 可自由分享、複製本字型檔。
+  * 禁止將本字型檔本身（單獨或併入字型資源包）販售牟利
+    —— 此為匯文正楷 PART A 的限制，較 OFL 嚴格，故對整體適用。
+
+
+================================================================================
+PART A — 匯文正楷 Huiwen-ZhengKai 授權（適用於本字型的中文字身部分）
+Copyright 2022 TerryWang. All rights reserved.
+================================================================================
+
+作者原始聲明（字型檔內嵌之版權／授權字串，簡體中文原文逐字引用）：
+
+  「本字体文件开源且免费商用，禁止第三方在任何平台以任何方式用此字体牟利。
+    如果您用付费方式获得了此字体文件，请找卖家退款。」
+
+英文摘要（English summary, non-authoritative translation）：
+  This font file is open source and free for commercial use. Third parties are
+  prohibited from profiting from this font in any way on any platform. If you
+  obtained this font file through payment, please request a refund from the seller.
+
+授權要點：
+  * 開源、免費，允許商業「使用」（印刷、展示、出版、影音、嵌入系統／軟體／文件／裝置）。
+  * 允許自由分享與複製本字型，以促進其流通。
+  * 禁止任何個人或組織將字型檔本身（單獨或併入資源包）販售牟利。
+  * 本授權為作者自訂聲明，非標準授權合約。
+
+原始作者與出處：TerryWang（特里王）。如需授權細節以作者原始公開聲明為準。
+
+
+================================================================================
+PART B — OpenDyslexic 3 授權（適用於本字型的拉丁字母／數字／符號部分）
+Copyright Abelardo Gonzalez. Licensed under the SIL Open Font License, Version 1.1.
+================================================================================
+
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+This license is copied below, and is also available with a FAQ at:
+https://openfontlicense.org
+
+-----------------------------------------------------------
+SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007
+-----------------------------------------------------------
+
+PREAMBLE
+The goals of the Open Font License (OFL) are to stimulate worldwide
+development of collaborative font projects, to support the font creation
+efforts of academic and linguistic communities, and to provide a free and
+open framework in which fonts may be shared and improved in partnership
+with others.
+
+The OFL allows the licensed fonts to be used, studied, modified and
+redistributed freely as long as they are not sold by themselves. The
+fonts, including any derivative works, can be bundled, embedded,
+redistributed and/or sold with any software provided that any reserved
+names are not used by derivative works. The fonts and derivatives,
+however, cannot be released under any other type of license. The
+requirement for fonts to remain under this license does not apply
+to any document created using the fonts or their derivatives.
+
+DEFINITIONS
+"Font Software" refers to the set of files released by the Copyright
+Holder(s) under this license and clearly marked as such. This may
+include source files, build scripts and documentation.
+
+"Reserved Font Name" refers to any names specified as such after the
+copyright statement(s).
+
+"Original Version" refers to the collection of Font Software components as
+distributed by the Copyright Holder(s).
+
+"Modified Version" refers to any derivative made by adding to, deleting,
+or substituting -- in part or in whole -- any of the components of the
+Original Version, by changing formats or by porting the Font Software to a
+new environment.
+
+"Author" refers to any designer, engineer, programmer, technical
+writer or other person who contributed to the Font Software.
+
+PERMISSION & CONDITIONS
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of the Font Software, to use, study, copy, merge, embed, modify,
+redistribute, and sell modified and unmodified copies of the Font
+Software, subject to the following conditions:
+
+1) Neither the Font Software nor any of its individual components,
+in Original or Modified Versions, may be sold by itself.
+
+2) Original or Modified Versions of the Font Software may be bundled,
+redistributed and/or sold with any software, provided that each copy
+contains the above copyright notice and this license. These can be
+included either as stand-alone text files, human-readable headers or
+in the appropriate machine-readable metadata fields within text or
+binary files as long as those fields can be easily viewed by the user.
+
+3) No Modified Version of the Font Software may use the Reserved Font
+Name(s) unless explicit written permission is granted by the corresponding
+Copyright Holder. This restriction only applies to the primary font name as
+presented to the users.
+
+4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+Software shall not be used to promote, endorse or advertise any
+Modified Version, except to acknowledge the contribution(s) of the
+Copyright Holder(s) and the Author(s) or with their explicit written
+permission.
+
+5) The Font Software, modified or unmodified, in part or in whole,
+must be distributed entirely under this license, and must not be
+distributed under any other license. The requirement for fonts to
+remain under this license does not apply to any document created
+using the Font Software.
+
+TERMINATION
+This license becomes null and void if any of the above conditions are
+not met.
+
+DISCLAIMER
+THE FONT SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
+OTHER DEALINGS IN THE FONT SOFTWARE.
+
+
+================================================================================
+為何採雙重授權（而非統一為 SIL OFL 1.1）
+================================================================================
+
+匯文正楷的自訂授權與 SIL OFL 1.1 不相容，無法將整體改標為 OFL，原因：
+
+1. 對「販售字型」的規定直接衝突：
+   - OFL 第 2 條允許字型「隨任何軟體搭售」（bundled and/or sold with any software）。
+   - 匯文正楷則「禁止以任何方式用此字體牟利」。
+   OFL 比匯文正楷授權更寬鬆；無權將 TerryWang 的作品改標成一個會「授予他並未授予之
+   權利」的授權。
+
+2. OFL 第 5 條要求整個字型「完整地」以 OFL 散布、不得併用其他授權；而中文字身部分
+   受 TerryWang 自訂授權拘束，無法滿足此要求。
+
+3. 公開字型授權資料庫（ZeoSeven Fonts）記載匯文正楷之衍生作品須「以相同許可協議
+   公開發布」，跨協議轉授權標示為「待釋明」（未明確授予）。
+
+因此本字型誠實採雙重授權標註，各部分沿用其來源授權。
+================================================================================

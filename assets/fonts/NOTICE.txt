@@ -1,0 +1,7 @@
+Atlas ZhengKai is a subsetted, renamed derivative of DyslexicKai Mono.
+CJK glyphs: Huiwen-ZhengKai, Copyright 2022 TerryWang, custom free commercial-use license.
+Latin glyphs: OpenDyslexic 3, Copyright Abelardo Gonzalez, SIL OFL 1.1.
+Source: https://github.com/DraftingDreamer/FontDyslexicKai
+Source commit: c7ff010c15af692d6d98df111404a6b867f972f6
+All upstream copyright and license metadata are retained in the font.
+See LICENSE.txt for the complete, unchanged upstream dual-license terms. Font files may not be sold.

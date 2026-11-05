@@ -63,7 +63,7 @@
         const nx = x / c.width, ny = y / c.height;
         const edge = Math.min(nx, 1 - nx, ny, 1 - ny);
         const feather = smooth(0, .15 + Math.sin(nx * 18 + ny * 13) * .025, edge);
-        const alpha = Math.min(1, Math.max(0, (.94 - lum) * 2.25)) * feather;
+        const alpha = Math.min(.98, Math.pow(Math.max(0, (.955 - lum) / .93), .86) * 1.25) * feather;
         d[i] = 39; d[i + 1] = 35; d[i + 2] = 29; d[i + 3] = Math.round(alpha * 255);
       }
     }
@@ -111,7 +111,7 @@
     stamp(p, 1, 3020, 700, 64, .045, .74);
     stamp(p, 4, 2525, 1025, 62, -.06, .62);
     stamp(p, 3, 160, 915, 67, .025, .64);
-    p.save(); p.fillStyle = '#51432ec9'; p.font = '23px "Kaiti SC", KaiTi, serif';
+    p.save(); p.fillStyle = '#51432ec9'; p.font = '25px "Atlas ZhengKai", "Kaiti SC", KaiTi, serif';
     const text = '山非故山　水非故水';
     for (let i = 0; i < text.length; i++) p.fillText(text[i], 100, 220 + i * 31);
     p.restore();
@@ -288,8 +288,13 @@
       const a = s.angle + progress * s.spin;
       const travel = wave * s.speed;
       const x = s.x + Math.cos(a) * travel, y = s.y + Math.sin(a) * travel * .64;
-      ctx.fillStyle = `rgba(38,38,33,${s.alpha * wave * .68})`;
-      ctx.fillRect(x, y, s.size * (1 + wave), s.size * .55);
+      // Fine ink filaments follow the curl of the flow, rather than square confetti.
+      const length = s.size * (2.5 + wave * 4.5);
+      ctx.strokeStyle = `rgba(38,36,30,${s.alpha * wave * .64})`;
+      ctx.lineWidth = Math.max(.5, s.size * (.45 + wave * .35)); ctx.lineCap = 'round';
+      ctx.beginPath(); ctx.moveTo(x, y);
+      ctx.quadraticCurveTo(x + Math.cos(a + .5) * length * .65, y + Math.sin(a + .5) * length * .65,
+        x + Math.cos(a) * length, y + Math.sin(a) * length * .6); ctx.stroke();
     }
     ctx.restore();
     if (grid) { ctx.save(); ctx.scale(.5, .5); drawGrid(); ctx.restore(); }
@@ -301,7 +306,7 @@
     const count = innerWidth < 700 ? 1800 : 3600; shards = [];
     for (let i = 0; i < count; i++) {
       const x = Math.floor(rand(W)), y = Math.floor(rand(H)), offset = (y * W + x) * 4;
-      const darkness = 1 - data[offset] / 255;
+      const darkness = Math.max(0, 1 - data[offset] / 220);
       if (darkness < .12) continue;
       shards.push({ x, y, alpha: darkness, angle: rand(Math.PI * 2), spin: rand(-10, 10),
         speed: rand(60, 330), size: rand(1, 3.4) });
@@ -398,9 +403,9 @@
     if (busy || !current) return;
     const out = paper(W + 120, H + 250), p = out.getContext('2d');
     p.drawImage(current, 60, 45);
-    p.fillStyle = '#675137a8'; p.font = '22px "Kaiti SC", KaiTi, serif';
+    p.fillStyle = '#675137a8'; p.font = '24px "Atlas ZhengKai", "Kaiti SC", KaiTi, serif';
     p.fillText('借萬物之形　寫無有之境', 140, H + 145);
-    p.font = '17px serif'; p.fillText(`虛構山河　第 ${round} 卷`, W - 450, H + 145);
+    p.font = '20px "Atlas ZhengKai", serif'; p.fillText(`虛構山河　第 ${round} 卷`, W - 450, H + 145);
     stamp(p, 5, W - 120, H + 126, 84, -.06, .7);
     out.toBlob(blob => saveBlob(blob, `无何有之乡-${seed.toString(16)}.png`), 'image/png');
   };
@@ -434,8 +439,8 @@
       }
       const wasOn = $('sound').getAttribute('aria-pressed') === 'true';
       if (wasOn) await audioContext.suspend(); else await audioContext.resume();
-      $('sound').setAttribute('aria-pressed', String(!wasOn)); $('sound').querySelector('span').textContent = wasOn ? '关闭' : '开启';
-    } catch { $('sound').querySelector('span').textContent = '暂不可用'; }
+      $('sound').setAttribute('aria-pressed', String(!wasOn)); $('sound-status').textContent = wasOn ? '聲境已關閉' : '聲境已開啟';
+    } catch { $('sound-status').textContent = '暂不可用'; }
   };
   async function init() {
     try {
@@ -451,6 +456,10 @@
       const sealPreview = makeCanvas(384, 256);
       sealPreview.getContext('2d').drawImage(sealImage, 0, 0, 384, 256);
       document.documentElement.style.setProperty('--seal-image', `url("${sealPreview.toDataURL('image/webp', .9)}")`);
+      if (window.ATLAS_FONT && window.FontFace) {
+        const face = new FontFace('Atlas ZhengKai', ATLAS_FONT);
+        await face.load(); document.fonts.add(face);
+      }
       paperLayer = paper(); ctx.drawImage(paperLayer, 0, 0);
       const total = INK_ASSETS.tiles.length;
       // Sequential decoding caps memory on phones; data URLs also work without a server.
@@ -475,6 +484,12 @@
       console.error(e);
     }
   }
+  $('guide-toggle').onclick = () => {
+    const open = $('guide-toggle').getAttribute('aria-expanded') === 'true';
+    $('guide-toggle').setAttribute('aria-expanded', String(!open));
+    $('guide-toggle').textContent = open ? '如何遊觀 ＋' : '收起指引 −';
+    $('guide-details').hidden = open;
+  };
   $('work-note-toggle').onclick = () => {
     const open = $('work-note-toggle').getAttribute('aria-expanded') === 'true';
     $('work-note-toggle').setAttribute('aria-expanded', String(!open)); $('work-note').hidden = open;

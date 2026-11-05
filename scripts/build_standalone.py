@@ -5,7 +5,7 @@ root = Path(__file__).resolve().parents[1]
 html = (root/'index.html').read_text(encoding='utf-8')
 style = (root/'style.css').read_text(encoding='utf-8')
 html = re.sub(r'<link rel="stylesheet" href="style\.css(?:\?[^\"]*)?">', lambda _: '<style>\n'+style+'\n</style>', html)
-for name in ('assets/ink-library.js','assets/scroll-materials.js','assets/wonders-library.js','app.js'):
+for name in ('assets/font-library.js','assets/ink-library.js','assets/scroll-materials.js','assets/wonders-library.js','app.js'):
     script = (root/name).read_text(encoding='utf-8').replace('</script','<\\/script')
     pattern = r'<script src="'+re.escape(name)+r'(?:\?[^\"]*)?"></script>'
     html = re.sub(pattern, lambda _, content=script: '<script>\n'+content+'\n</script>', html)

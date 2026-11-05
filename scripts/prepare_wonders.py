@@ -5,7 +5,7 @@ import json
 from pathlib import Path
 from PIL import Image
 root=Path(__file__).resolve().parents[1]
-source=Path('/workspace/generated_images/exec-605e20d6-a536-4e14-b3aa-9ba6d7224e52.png')
+source=Path('/workspace/generated_images/exec-5bba5e81-944f-455f-80fa-534afa822ebd.png')
 cache=root/'assets/sources/wonders.webp'
 image=Image.open(source) if source.exists() else Image.open(cache)
 image.convert('RGB').save(cache,'WEBP',quality=97,method=6)

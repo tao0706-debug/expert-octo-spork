@@ -10,7 +10,7 @@ out = root/'assets'/'scroll'
 out.mkdir(exist_ok=True)
 files = {
  'paper': 'exec-8201bade-49ea-4764-9c62-a64b26ba25cb.png',
- 'letters': 'exec-ad874711-2596-4648-9a71-413cb94aea0f.png',
+ 'letters': 'exec-0133f1f6-1908-476b-8a80-3fb97e66ebf9.png',
  'seals': 'exec-dd229cc4-8e23-42f8-a7f1-06ababfae424.png',
 }
 images = {}
@@ -25,6 +25,6 @@ def encode(img):
     return 'data:image/webp;base64,'+base64.b64encode(b.getvalue()).decode()
 
 payload = dict(paper=encode(images['paper']), title=encode(images['letters'].crop((130,0,520,1024))),
-               inscription=encode(images['letters'].crop((670,50,1450,980))), seals=encode(images['seals']))
+               inscription=encode(images['letters'].crop((575,0,1536,1024))), seals=encode(images['seals']))
 (root/'assets'/'scroll-materials.js').write_text('window.SCROLL_MATERIALS='+json.dumps(payload,separators=(',',':'))+';\n')
 print('Embedded antique paper, brush title, inscription, six seal impressions')
